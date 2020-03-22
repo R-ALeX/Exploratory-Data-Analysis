@@ -17,4 +17,59 @@ hist(data$Global_active_power, main="Global Active Power",
 
 #------   Save our picture  -------
 dev.copy(png, file="plot1.png", height=480, width=480)
+
+#------   Choose next screen  -------
+dev.set(dev.next())
+
+#------   Draw our plot  -------
+par(mfcol = c(1,1))
+plot(data$Global_active_power~data$Datetime, type="l",
+     ylab="Global Active Power (kilowatts)", xlab="")
+
+#------   Save our picture  -------
+dev.copy(png, file="plot2.png", height=480, width=480)
+
+#------   Choose next screen  -------
+dev.set(dev.next())
+
+#------   Draw next chart  -------
+with(data, {
+  plot(Sub_metering_1~Datetime, type="l",
+       ylab="Global Active Power (kilowatts)", xlab="")
+  lines(Sub_metering_2~Datetime,col='Red')
+  lines(Sub_metering_3~Datetime,col='Blue')
+})
+
+#------   Write legend  -------
+legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2, 
+       legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+
+#------   Save our picture  -------
+dev.copy(png, file="plot3.png", height=480, width=480)
+
+#------   Choose next screen  -------
+dev.set(dev.next())
+
+#------   Get space for our charts  -------
+par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
+
+#------   Draw the last one  -------
+with(data, {
+  plot(Global_active_power~Datetime, type="l", 
+       ylab="Global Active Power (kilowatts)", xlab="")
+  plot(Voltage~Datetime, type="l", 
+       ylab="Voltage (volt)", xlab="")
+  plot(Sub_metering_1~Datetime, type="l", 
+       ylab="Global Active Power (kilowatts)", xlab="")
+  lines(Sub_metering_2~Datetime,col='Red')
+  lines(Sub_metering_3~Datetime,col='Blue')
+  legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2, bty="n",
+         legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+  plot(Global_reactive_power~Datetime, type="l", 
+       ylab="Global Rective Power (kilowatts)",xlab="")
+})
+
+#------   Save our picture  -------
+dev.copy(png, file="plot4.png", height=480, width=480)
 dev.off()
+
